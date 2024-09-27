@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  tls: true
+  path: /longhorn/
+  pathType: Prefix
+  host: rasp5.home
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/rule-type: PathPrefixStrip
+    traefik.ingress.kubernetes.io/router.middlewares: "longhorn-system-replacepath@kubernetescrd"

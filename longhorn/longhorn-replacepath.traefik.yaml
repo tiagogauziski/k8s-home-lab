@@ -1,0 +1,9 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: replacepath
+  namespace: longhorn-system
+spec:
+  replacePathRegex:
+    regex: "^/longhorn(/|$)(.*)"
+    replacement: "/${2}"
