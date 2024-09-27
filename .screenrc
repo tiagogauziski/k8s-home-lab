@@ -1,0 +1,75 @@
+## General
+# Turn off startup message
+startup_message off
+
+# Keep session running on disconnect
+autodetach on
+
+# Set a big scroll buffer
+defscrollback 6000    # default 100
+
+# Set the message hang time to 10 seconds
+msgwait 10            # default 7
+
+## Bindings
+# Use ctrl+a ctrl+q as an alternative to ctrl+a ctrl+\
+bind ^Q quit
+
+# Use j, l, and r to resize regions
+bindkey ^J resize -1
+bindkey ^L resize +1
+bindkey ^R resize 50%
+
+# Configure ctrl+a space to show windowlist
+bind ' ' windowlist
+
+# Bind F11/F12 keys to next/previous windows
+bindkey -k k1 prev
+bindkey -k k2 next
+
+## Status and captions
+# Set the caption to show just a list of windows
+caption string "%w"
+
+# Set a hardstatus with a window list and date/time
+hardstatus alwayslastline
+hardstatus string "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%< %=%D %M %d %c"
+
+## Layout
+# Define startup window
+screen -t controlpanel  0
+screen -t bash          1 bash
+screen -t disk-use      2 watch df -hT
+screen -t logs          3 sudo journalctl --follow
+select 0
+
+# Stuff the sudo password into window 3, logs
+# screen bash -c "screen -p3 -X stuff 'my_password'"
+
+# Define basic layout
+layout new basic
+select 0
+layout attach basic
+
+# Define 4 window layout
+layout new 4up          # Create a new layout named 4up
+select 0                # Load window 0 in the sole region
+split -v                # Vertically split into 2 regions
+focus right             # Move the cursor to the right region
+select 1                # Load window 1 in the right region
+split                   # split the right region horizontally
+focus down              # Move the cursor to the botton right region
+select 2                # Load window 2 in bottom right region
+focus left              # Move the cursor to the left region
+split                   # Horizontally split the left region
+focus down              # Move the cursor to the bottom left region
+select 3                # Load window 3 in the bottom left region
+focus up                # Set the initial focus to window 0
+layout attach 4up       # Attach the layout for usage
+
+# Select the initial layout
+layout select 4up
+
+# Setup ctrl+n to switch to next layout and ctrl+p to switch to the previous
+bindkey ^N layout next
+bindkey ^P layout prev
