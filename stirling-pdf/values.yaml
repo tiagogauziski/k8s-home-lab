@@ -21,7 +21,7 @@ commonLabels: {}
 rootPath: /
 
 # -- Environment variables to add to the stirling-pdf pods
-envs: []
+envs:
 # - name: UI_APP_NAME
 #   value: "Stirling PDF"
 # - name: UI_HOME_DESCRIPTION
